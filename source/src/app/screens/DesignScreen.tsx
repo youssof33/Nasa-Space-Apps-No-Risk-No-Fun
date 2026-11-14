@@ -25,6 +25,7 @@ import {
   type FlightEvaluation,
   type FlightPart,
 } from "../../integration/flight";
+import { eclipseOf } from "../../integration/eclipse";
 import { missionById, scenarioOf } from "../../integration/missions";
 import { stageModelOf } from "../../integration/stage";
 import { Chip } from "../../ui/components/Chip";
@@ -393,7 +394,13 @@ export function DesignScreen({ scenarioId }: { scenarioId: string }) {
                   active={state.orbit === candidate.id}
                   name={candidate.name}
                   meta={candidate.blurb}
-                  foot={`${candidate.altitude} · ${candidate.revisit} revisit`}
+                  foot={`${candidate.altitude} · ${candidate.revisit} revisit${
+                    eclipseOf(mission.id, candidate.id) !== null
+                      ? ` · ${Math.round(
+                          (1 - (eclipseOf(mission.id, candidate.id) as number)) * 100,
+                        )}% sunlit (JPL Horizons)`
+                      : ""
+                  }`}
                   onClick={() => setOrbit(candidate.id)}
                 />
               ))}

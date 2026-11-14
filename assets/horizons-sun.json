@@ -1,0 +1,118 @@
+{
+  "source": "JPL Horizons (NASA/JPL-Caltech), API v1, observer and vector tables",
+  "epoch": "2026-11-14",
+  "fetchedAt": "2026-11-14T10:33:17.534Z",
+  "geometry": [
+    {
+      "body": "earth",
+      "date": "A.D. 2026-Nov-14 00:00:00.0000",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='10'&EPHEM_TYPE='VECTORS'&CENTER='500@399'&START_TIME='2026-11-14'&STOP_TIME='2026-11-15'&STEP_SIZE='1%20d'&VEC_TABLE='1'&OUT_UNITS='AU-D'&CSV_FORMAT='YES'",
+      "sunDirectionAu": [
+        -0.6193649932218411,
+        -0.7717384158169422,
+        0.00004955859391073781
+      ],
+      "distanceAu": 0.989542,
+      "solarIrradianceWm2": 1389.9
+    },
+    {
+      "body": "moon",
+      "date": "A.D. 2026-Nov-14 00:00:00.0000",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='10'&EPHEM_TYPE='VECTORS'&CENTER='500@301'&START_TIME='2026-11-14'&STOP_TIME='2026-11-15'&STEP_SIZE='1%20d'&VEC_TABLE='1'&OUT_UNITS='AU-D'&CSV_FORMAT='YES'",
+      "sunDirectionAu": [
+        -0.6199824867489822,
+        -0.7691032445612381,
+        0.0002076296594408542
+      ],
+      "distanceAu": 0.987876,
+      "solarIrradianceWm2": 1394.6
+    },
+    {
+      "body": "mars",
+      "date": "A.D. 2026-Nov-14 00:00:00.0000",
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND='10'&EPHEM_TYPE='VECTORS'&CENTER='500@499'&START_TIME='2026-11-14'&STOP_TIME='2026-11-15'&STEP_SIZE='1%20d'&VEC_TABLE='1'&OUT_UNITS='AU-D'&CSV_FORMAT='YES'",
+      "sunDirectionAu": [
+        0.4582101466393467,
+        -1.540546502862178,
+        -0.04351945733777984
+      ],
+      "distanceAu": 1.607835,
+      "solarIrradianceWm2": 526.5
+    }
+  ],
+  "orbits": [
+    {
+      "id": "polar-watch:leo",
+      "body": "earth",
+      "altitudeKm": 600,
+      "betaDeg": 30,
+      "eclipseFraction": 0.345,
+      "sunlightFraction": 0.655
+    },
+    {
+      "id": "polar-watch:sso",
+      "body": "earth",
+      "altitudeKm": 700,
+      "betaDeg": 55,
+      "eclipseFraction": 0.227,
+      "sunlightFraction": 0.773
+    },
+    {
+      "id": "polar-watch:geo",
+      "body": "earth",
+      "altitudeKm": 35786,
+      "betaDeg": 0,
+      "eclipseFraction": 0.048,
+      "sunlightFraction": 0.952
+    },
+    {
+      "id": "lunar-ice:low",
+      "body": "moon",
+      "altitudeKm": 100,
+      "betaDeg": 45,
+      "eclipseFraction": 0.348,
+      "sunlightFraction": 0.652
+    },
+    {
+      "id": "lunar-ice:mid",
+      "body": "moon",
+      "altitudeKm": 1000,
+      "betaDeg": 45,
+      "eclipseFraction": 0,
+      "sunlightFraction": 1
+    },
+    {
+      "id": "lunar-ice:halo",
+      "body": "moon",
+      "altitudeKm": 60000,
+      "betaDeg": 0,
+      "eclipseFraction": 0.009,
+      "sunlightFraction": 0.991
+    },
+    {
+      "id": "mars-dust:low",
+      "body": "mars",
+      "altitudeKm": 400,
+      "betaDeg": 40,
+      "eclipseFraction": 0.302,
+      "sunlightFraction": 0.698
+    },
+    {
+      "id": "mars-dust:sso",
+      "body": "mars",
+      "altitudeKm": 500,
+      "betaDeg": 55,
+      "eclipseFraction": 0.174,
+      "sunlightFraction": 0.826
+    },
+    {
+      "id": "mars-dust:sync",
+      "body": "mars",
+      "altitudeKm": 17032,
+      "betaDeg": 0,
+      "eclipseFraction": 0.053,
+      "sunlightFraction": 0.947
+    }
+  ],
+  "method": "Circular-orbit eclipse fraction from the standard terminator formula with beta angles representative of each orbit family."
+}
