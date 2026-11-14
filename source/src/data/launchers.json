@@ -1,0 +1,51 @@
+[
+  {
+    "id": "electron",
+    "name": "Electron-Class Small Launcher",
+    "costM": 8,
+    "payloadKgByClass": { "LEO": 55, "SSO": 45, "GTO": 0, "TLI": 0 },
+    "reliabilityProbability": 0.97,
+    "fairingDiameterM": 1.2,
+    "fairingHeightM": 2.5,
+    "missionMode": "dedicated",
+    "fixedOrbitRiskProbability": 0.02,
+    "scheduleDelayRiskProbability": 0.06
+  },
+  {
+    "id": "vega-class",
+    "name": "Vega-Class Dedicated Launcher",
+    "costM": 35,
+    "payloadKgByClass": { "LEO": 1500, "SSO": 1200, "GTO": 50, "TLI": 55 },
+    "reliabilityProbability": 0.98,
+    "fairingDiameterM": 2.6,
+    "fairingHeightM": 7.8,
+    "missionMode": "dedicated",
+    "fixedOrbitRiskProbability": 0,
+    "scheduleDelayRiskProbability": 0.04
+  },
+  {
+    "id": "falcon-9-rideshare",
+    "name": "Falcon 9-Class Rideshare Slot",
+    "costM": 12,
+    "payloadKgByClass": { "LEO": 40, "SSO": 0, "GTO": 0, "TLI": 0 },
+    "reliabilityProbability": 0.99,
+    "fairingDiameterM": 1.5,
+    "fairingHeightM": 2.5,
+    "missionMode": "rideshare",
+    "fixedOrbitId": "LEO",
+    "fixedOrbitRiskProbability": 0.16,
+    "scheduleDelayRiskProbability": 0.28
+  },
+  {
+    "id": "falcon-9-dedicated",
+    "name": "Falcon 9-Class Dedicated Launch",
+    "costM": 50,
+    "payloadKgByClass": { "LEO": 15000, "SSO": 10000, "GTO": 5500, "TLI": 3000 },
+    "reliabilityProbability": 0.99,
+    "fairingDiameterM": 5.2,
+    "fairingHeightM": 13.1,
+    "missionMode": "dedicated",
+    "fixedOrbitRiskProbability": 0,
+    "scheduleDelayRiskProbability": 0.04
+  }
+]

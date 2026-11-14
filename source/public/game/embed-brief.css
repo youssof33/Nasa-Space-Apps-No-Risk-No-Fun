@@ -1,0 +1,177 @@
+/* ==========================================================================
+   Integration only — the Brief step of the merged site.
+   Every rule is scoped to body.mc-embed-brief, so the standalone game is
+   untouched. The merged site keeps the game's Brief tab, its scene and its
+   visual language; it removes the parts that belong to the workbench.
+   ========================================================================== */
+
+/* The left rail (resources / requirements / team) and the recommended solver
+   belong to the design game, not to a mission brief. */
+body.mc-embed-brief .rail,
+body.mc-embed-brief #btn-rec,
+body.mc-embed-brief #proj,
+body.mc-embed-brief #warn-ticker {
+  display: none !important;
+}
+
+/* BRIEF is the only tab in this flow. */
+body.mc-embed-brief #tabs button:not([data-id="objective"]) {
+  display: none !important;
+}
+
+body.mc-embed-brief #tabs button[data-id="objective"] {
+  cursor: default;
+}
+
+/* One brief panel on the right, so the live scene keeps the left half of the
+   screen to itself. */
+body.mc-embed-brief .builder {
+  top: 76px;
+  bottom: 96px;
+  right: clamp(20px, 4vw, 56px);
+  left: auto;
+  width: min(560px, 46vw);
+  min-width: 320px;
+  animation: mcBriefIn 700ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+
+@keyframes mcBriefIn {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+body.mc-embed-brief .tab-body {
+  padding: 18px 22px 24px;
+}
+
+/* The site hint replaces the game's design-game framing line. */
+body.mc-embed-brief #tab-body > .tab-intro:first-child {
+  display: none;
+}
+
+body.mc-embed-brief .tab-body .tab-intro {
+  max-width: 62ch;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+/* Mission list: three site missions, site order, site names. */
+body.mc-embed-brief .mc-missions {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 4px;
+}
+
+body.mc-embed-brief .mc-brief-hint {
+  margin: 0 0 4px;
+  color: var(--dim-2);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+body.mc-embed-brief .mc-site-option {
+  margin-bottom: 0;
+  padding: 12px 15px;
+}
+
+body.mc-embed-brief .mc-site-option .o-name {
+  font-family: "Space Grotesk", var(--sans);
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+
+body.mc-embed-brief .mc-site-option .o-meta {
+  margin-top: 4px;
+  font-size: 10.5px;
+}
+
+body.mc-embed-brief .mc-site-option .o-note {
+  margin-top: 5px;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+body.mc-embed-brief .sec-label {
+  margin-top: 22px;
+}
+
+/* The bar now only carries the single forward action. */
+body.mc-embed-brief .launchbar {
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+body.mc-embed-brief .launchbar::before {
+  margin-right: auto;
+  color: var(--dim-2);
+  content: "Brief · step 1 of 3";
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+body.mc-embed-brief .btn-launch {
+  min-width: 236px;
+}
+
+/* The workbench owns flight readiness, so this control is navigation and must
+   never look blocked by the game's empty design. */
+body.mc-embed-brief .btn-launch,
+body.mc-embed-brief .btn-launch.blocked,
+body.mc-embed-brief .btn-launch.caution {
+  background: linear-gradient(180deg, #3f93ea, #1f66bd);
+  box-shadow:
+    0 10px 34px -12px rgba(58, 143, 238, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+body.mc-embed-brief .btn-launch:hover,
+body.mc-embed-brief .btn-launch.blocked:hover,
+body.mc-embed-brief .btn-launch.caution:hover {
+  box-shadow:
+    0 18px 44px -12px rgba(58, 143, 238, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 640px) {
+  body.mc-embed-brief .builder {
+    top: 78px;
+    bottom: 88px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    min-width: 0;
+    transform: none;
+    animation: none;
+  }
+
+  body.mc-embed-brief .tab-body {
+    padding: 16px 16px 22px;
+  }
+
+  body.mc-embed-brief .launchbar::before {
+    content: "Step 1 of 3";
+  }
+}
+
+@media (max-width: 620px) {
+  body.mc-embed-brief .launchbar::before {
+    display: none;
+  }
+
+  body.mc-embed-brief .btn-launch {
+    width: 100%;
+    min-width: 0;
+  }
+}

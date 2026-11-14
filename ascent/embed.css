@@ -1,0 +1,47 @@
+/* Integration only: the launch stage fills the iframe. Every rule is scoped to
+   body.mc-embed, so the game's own layout is unchanged outside the embed. */
+body.mc-embed {
+  overflow: hidden;
+}
+
+body.mc-embed .topbar,
+body.mc-embed .panel,
+body.mc-embed .title-screen,
+body.mc-embed .stage-top,
+body.mc-embed .hud,
+body.mc-embed .stage-fallback {
+  display: none !important;
+}
+
+body.mc-embed .lab {
+  display: block;
+  padding: 0;
+  gap: 0;
+  height: 100vh;
+  max-height: none;
+}
+
+body.mc-embed .stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+/* The host crossfades into the operations scene at orbit insertion. Everything
+   belonging to the ascent chrome leaves with it, so no HUD is left floating
+   over the spacecraft. */
+body.mc-embed.mc-handoff #launchHud,
+body.mc-embed.mc-handoff .stage-top,
+body.mc-embed.mc-handoff .stage-cams,
+body.mc-embed.mc-handoff .stage-hint,
+body.mc-embed.mc-handoff .stage-readout,
+body.mc-embed.mc-handoff .stage-scrim,
+body.mc-embed.mc-handoff .track,
+body.mc-embed.mc-handoff .rig {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 480ms ease;
+}

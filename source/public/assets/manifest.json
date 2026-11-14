@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-11-13T14:53:25.771Z",
+  "assets": {
+    "earth-day": {
+      "source": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/july/world.200407.3x5400x2700.jpg",
+      "sourcePage": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/",
+      "credit": "NASA Earth Observatory, Blue Marble: Next Generation (July 2004 base map), Reto Stöckli",
+      "license": "NASA imagery is generally not protected by copyright in the United States. Credit NASA Earth Observatory. NASA does not endorse SpaceX.",
+      "variants": [
+        {
+          "width": 4096,
+          "height": 2048,
+          "file": "textures/earth-day-4096.webp",
+          "bytes": 460458,
+          "sha256": "fa60e85966a2f2e7a3bcec911cbab0e0f15326b8dd5e48dedafcc7bd8134d652"
+        },
+        {
+          "width": 2048,
+          "height": 1024,
+          "file": "textures/earth-day-2048.webp",
+          "bytes": 141774,
+          "sha256": "9b795ac4a76112e6fab74bd65d2b5ce6b8ba442693b5c4646bdeada6d6171ddf"
+        },
+        {
+          "width": 1024,
+          "height": 512,
+          "file": "textures/earth-day-1024.webp",
+          "bytes": 41804,
+          "sha256": "392234c7cf59adf24576b9996623ee510aff443d552aeefc03775402b0dce20f"
+        }
+      ]
+    },
+    "earth-night": {
+      "source": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/144000/144898/BlackMarble_2016_01deg.jpg",
+      "sourcePage": "https://science.nasa.gov/earth/earth-at-night/maps/",
+      "credit": "NASA Earth Observatory, Black Marble 2016 night lights",
+      "license": "NASA imagery is generally not protected by copyright in the United States. Credit NASA Earth Observatory. NASA does not endorse SpaceX.",
+      "variants": [
+        {
+          "width": 2048,
+          "height": 1024,
+          "file": "textures/earth-night-2048.webp",
+          "bytes": 92786,
+          "sha256": "d606d550f4273752257f75e45644dd5060ef49f99d4df1c699c31b291ef5ab2e"
+        },
+        {
+          "width": 1024,
+          "height": 512,
+          "file": "textures/earth-night-1024.webp",
+          "bytes": 24610,
+          "sha256": "7275dbdc4a762024d3f84978a4d53835958a387d75df61b512fcb389413e3d64"
+        }
+      ]
+    },
+    "earth-bump": {
+      "source": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/topography/gebco_08_rev_elev_5400x2700.jpg",
+      "sourcePage": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/topography-bathymetry-maps/",
+      "credit": "NASA Earth Observatory, Blue Marble Next Generation topography and bathymetry (GEBCO)",
+      "license": "NASA imagery is generally not protected by copyright in the United States. Credit NASA Earth Observatory. NASA does not endorse SpaceX.",
+      "variants": [
+        {
+          "width": 2048,
+          "height": 1024,
+          "file": "textures/earth-bump-2048.webp",
+          "bytes": 71518,
+          "sha256": "8d0cdaa51cfacda6521d4701dd433bf8b6bfff2636240e3aabd9c877ac6ca7f2"
+        },
+        {
+          "width": 1024,
+          "height": 512,
+          "file": "textures/earth-bump-1024.webp",
+          "bytes": 22238,
+          "sha256": "d0d7a147537e5b62d3752979cca626de2b1bb80ab8b198fe54324609f760c2dc"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission Architect — A Space Mission Design Game</title>
+  <meta name="description" content="Design a spacecraft, balance mass, power, data and cost, then launch it in 3D. A playable space mission design game built for NASA Space Apps Cairo 2026." />
+  <meta name="theme-color" content="#04070d" />
+  <meta property="og:title" content="Mission Architect — A Space Mission Design Game" />
+  <meta property="og:description" content="Build the mission. Balance the budgets. Launch it in 3D. Three design studies, one campaign." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="assets/fonts/SpaceGrotesk.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/Inter.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="preload" href="assets/fonts/JetBrainsMono.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="stylesheet" href="css/game.css?v=132" />
+<link rel="stylesheet" href="embed.css" />
+</head>
+<body class="is-title">
+  <a class="skip-link" href="#panel">Skip to mission design</a>
+
+  <header class="topbar" id="topbar">
+    <button class="brand" id="brandBtn" type="button" aria-label="Mission Architect home">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="4.2" />
+        <ellipse cx="16" cy="16" rx="14" ry="6.2" transform="rotate(-24 16 16)" />
+        <circle cx="27.2" cy="9.4" r="1.6" class="dot" />
+      </svg>
+      <span class="brand-txt">MISSION<em>ARCHITECT</em></span>
+    </button>
+
+    <div class="mission-pill" id="missionPill">
+      <span id="pillCode">M-01</span>
+      <b id="pillName">ARES RELAY</b>
+      <em id="pillCml">CML 2</em>
+    </div>
+
+    <nav class="topnav" aria-label="Game">
+      <button type="button" id="btnMissions">MISSIONS</button>
+      <button type="button" id="btnCodex">CODEX</button>
+      <button type="button" id="btnSound" aria-pressed="false">SOUND ON</button>
+    </nav>
+  </header>
+
+  <main class="lab" id="lab">
+    <section class="stage" id="stage" aria-label="3D mission view">
+      <canvas id="scene" aria-label="Interactive 3D view of the launch vehicle on the pad and the spacecraft in orbit. Drag to rotate, scroll to zoom."></canvas>
+
+      <div class="stage-scrim" aria-hidden="true"></div>
+
+      <nav class="track" id="stageRail" aria-label="Mission preparation stages"></nav>
+
+      <div class="stage-top">
+        <span class="stage-kicker" id="stageKicker">M-01 // ARES RELAY</span>
+        <span class="stage-state" id="stageState" role="status">ON PAD</span>
+      </div>
+
+      <div class="rig">
+        <div class="rig-pad" role="group" aria-label="Camera">
+          <button type="button" data-rig="left" title="Rotate left" aria-label="Rotate left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 3.8v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" data-rig="right" title="Rotate right" aria-label="Rotate right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.4-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 3.8v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" data-rig="in" title="Zoom in" aria-label="Zoom in">+</button>
+          <button type="button" data-rig="out" title="Zoom out" aria-label="Zoom out">−</button>
+          <button type="button" data-rig="reset" title="Reset the view" aria-label="Reset the view">◎</button>
+        </div>
+        <div class="rig-pad rig-cam" role="group" aria-label="Camera preset">
+          <button type="button" data-cam="pad" class="is-on" title="Wide view of the pad">PAD</button>
+          <button type="button" data-cam="chase" title="Close view of the vehicle">CLOSE</button>
+          <button type="button" data-cam="orbit" title="High angle around the pad">HIGH</button>
+        </div>
+      </div>
+
+      <div class="hud" id="hud">
+        <div class="hud-chips">
+          <span>SCIENCE <b id="cSci">0 / 0</b></span>
+          <span>RISK <b id="cRisk">0% / 0%</b></span>
+        </div>
+        <div class="meters">
+          <div class="meter" data-meter="mass">
+            <div class="m-top"><span>MASS</span><b><em id="mMass">0</em> / <span id="mMassCap">0</span> kg</b></div>
+            <div class="m-track"><i id="bMass"></i></div>
+          </div>
+          <div class="meter" data-meter="power">
+            <div class="m-top"><span>POWER</span><b><em id="mPower">0</em> / <span id="mPowerCap">0</span> W</b></div>
+            <div class="m-track"><i id="bPower"></i></div>
+          </div>
+          <div class="meter" data-meter="data">
+            <div class="m-top"><span>DATA</span><b><em id="mData">0</em> / <span id="mDataCap">0</span> GB/sol</b></div>
+            <div class="m-track"><i id="bData"></i></div>
+          </div>
+          <div class="meter" data-meter="budget">
+            <div class="m-top"><span>BUDGET</span><b><em id="mBudget">$0</em> / <span id="mBudgetCap">$0</span></b></div>
+            <div class="m-track"><i id="bBudget"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="stage-hint" id="stageHint">DRAG TO ROTATE · SCROLL TO ZOOM</p>
+
+      <div class="launch-hud" id="launchHud" hidden>
+        <div class="lh-top">
+          <span class="lh-mission" id="lhMission">M-01 // ARES RELAY</span>
+          <span class="lh-live"><i></i> LIVE</span>
+        </div>
+        <div class="lh-telemetry">
+          <div><span>ALTITUDE</span><b id="lhAlt">0 <i>KM</i></b></div>
+          <div><span>VELOCITY</span><b id="lhVel">0 <i>M/S</i></b></div>
+          <div><span>PHASE</span><b id="lhStage">IGNITION</b></div>
+        </div>
+        <div class="lh-log" id="lhLog" aria-live="off"></div>
+        <div class="lh-bottom">
+          <div class="lh-progress" aria-hidden="true"><i id="lhBar"></i></div>
+          <button type="button" class="btn btn-small" id="lhSkip">Skip to results →</button>
+        </div>
+      </div>
+
+      <div class="stage-fade" id="stageFade" aria-hidden="true"></div>
+      <div class="stage-fallback" id="stageFallback" hidden>
+        <p class="mono">3D VIEW UNAVAILABLE</p>
+        <p>This browser could not start WebGL. The design model, launch sequence and debrief still work.</p>
+      </div>
+    </section>
+
+    <aside class="panel" id="panel" aria-label="Mission design">
+      <div class="panel-scroll" id="panelScroll">
+        <div class="brief">
+          <div class="brief-top">
+            <span class="mono" id="briefNo">M-01</span>
+            <span class="tag" id="briefDiff">STANDARD</span>
+            <span class="tag tag-cml" id="briefCml">CML 2</span>
+          </div>
+          <h1 class="brief-name" id="briefName">ARES RELAY</h1>
+          <p class="brief-tag" id="briefTag">Keep the link alive.</p>
+          <p class="brief-need" id="briefNeed"></p>
+          <p class="brief-obj"><b>OBJECTIVE</b><span id="briefObj"></span></p>
+          <dl class="brief-grid" id="briefGrid"></dl>
+        </div>
+
+        <div class="prep">
+          <header class="stage-head">
+            <p class="mono stage-of" id="stageOf">STAGE 1 OF 5</p>
+            <h2 class="stage-title" id="stageTitle">The brief</h2>
+            <button type="button" class="role-chip" id="stageRole" title="Change crew">
+              <i aria-hidden="true"></i>
+              <b id="stageRoleName">FLIGHT DIRECTOR</b>
+              <em id="stageRoleWho">you</em>
+            </button>
+            <p class="stage-goal" id="stageGoal"></p>
+          </header>
+
+          <div class="design" id="design"></div>
+        </div>
+
+        <p class="model-note">ILLUSTRATIVE MODEL · NOT FLIGHT SOFTWARE</p>
+      </div>
+
+      <div class="panel-foot">
+        <div class="alert" id="alert" hidden>
+          <div>
+            <p class="mono">CONSTRAINT VIOLATION</p>
+            <strong id="alertTitle"></strong>
+            <p id="alertText"></p>
+          </div>
+          <button type="button" class="btn btn-small" id="fixBtn">Suggest a fix →</button>
+        </div>
+
+        <div class="foot-actions">
+          <button type="button" class="btn btn-ghost btn-back" id="stageBack">Back</button>
+          <button type="button" class="btn btn-run" id="runBtn">Accept the brief <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ── title ─────────────────────────────────────────────── -->
+  <section class="title-screen" id="titleScreen" aria-labelledby="titleH1">
+    <div class="title-inner">
+      <p class="eyebrow">NASA SPACE APPS CAIRO 2026 · SPACE MISSION DESIGN GAME</p>
+      <h1 id="titleH1">DESIGN<br />THE MISSION.<br /><span>EARN THE ORBIT.</span></h1>
+      <p class="title-lede">Build a spacecraft. Balance mass, power, data and cost. Then launch it in 3D and defend every choice in the debrief.</p>
+      <div class="title-actions">
+        <button type="button" class="btn btn-primary" id="btnStart">Start campaign <span aria-hidden="true">→</span></button>
+        <button type="button" class="btn btn-ghost" id="btnHow">How to play</button>
+      </div>
+      <div class="title-meta">
+        <span><b>3</b> DESIGN STUDIES</span>
+        <span><b>CML 1–4</b> CAMPAIGN</span>
+        <span><b>3D</b> LAUNCH &amp; ORBIT</span>
+      </div>
+      <p class="title-credit">TEAM NO RISK NO FUN · CAIRO, EGYPT · 2026</p>
+    </div>
+    <p class="title-scroll" aria-hidden="true">DRAG THE VEHICLE · SCROLL TO EXPLORE</p>
+  </section>
+
+  <!-- ── campaign ──────────────────────────────────────────── -->
+  <div class="modal" id="missionsModal" hidden>
+    <div class="modal-card wide" role="dialog" aria-modal="true" aria-labelledby="missionsTitle">
+      <header class="modal-head">
+        <div>
+          <p class="mono">CAMPAIGN // CONCEPT MATURITY</p>
+          <h2 id="missionsTitle">Choose a design study</h2>
+        </div>
+        <button type="button" class="x" data-close="missionsModal" aria-label="Close">×</button>
+      </header>
+      <div class="camp-progress" id="campProgress"></div>
+      <div class="camp-grid" id="campGrid"></div>
+      <footer class="modal-foot">
+        <p>Each completed study advances one Concept Maturity Level. Missions stay open after unlock.</p>
+        <button type="button" class="link-btn" id="resetCampaign">Reset campaign progress</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ── crew / handover ───────────────────────────────────── -->
+  <div class="modal" id="crewModal" hidden>
+    <div class="modal-card crew-card" role="dialog" aria-modal="true" aria-labelledby="crewTitle">
+      <header class="modal-head">
+        <div>
+          <p class="mono">CREW ASSEMBLY // 4 CONSOLES</p>
+          <h2 id="crewTitle">Who is flying this study?</h2>
+        </div>
+        <button type="button" class="x" data-close="crewModal" aria-label="Close">×</button>
+      </header>
+      <p class="crew-lede">Four roles, one spacecraft, one screen. Each player owns the stages listed on their card and hands the controls on when their part is done. Names stay on this device.</p>
+      <div class="crew-grid" id="crewGrid"></div>
+      <footer class="modal-foot">
+        <p>Pass the device, not the mouse. Every role can still read every budget.</p>
+        <button type="button" class="btn btn-primary" id="crewStart">Begin preparation <span aria-hidden="true">→</span></button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="handoffModal" hidden>
+    <div class="handoff-card" role="dialog" aria-modal="true" aria-labelledby="handRole">
+      <p class="mono">HANDOVER // PASS THE CONTROLS</p>
+      <h2 id="handRole">Science Lead</h2>
+      <p class="hand-name" id="handName">Player 2</p>
+      <p class="hand-task" id="handTask">Choose the bus and the payloads.</p>
+      <button type="button" class="btn btn-primary" id="handBtn">Take the controls <span aria-hidden="true">→</span></button>
+      <p class="hand-hint">Everyone can keep reading the brief and the budgets.</p>
+    </div>
+  </div>
+
+
+  <!-- ── codex ─────────────────────────────────────────────── -->
+  <div class="modal" id="codexModal" hidden>
+    <div class="modal-card wide" role="dialog" aria-modal="true" aria-labelledby="codexTitle">
+      <header class="modal-head">
+        <div>
+          <p class="mono">CODEX // DESIGN NOTES</p>
+          <h2 id="codexTitle">How this mission works</h2>
+        </div>
+        <button type="button" class="x" data-close="codexModal" aria-label="Close">×</button>
+      </header>
+
+      <div class="codex-tabs" role="tablist" aria-label="Codex sections">
+        <button type="button" role="tab" aria-selected="true" aria-controls="ctab-play" data-ctab="play" class="is-on">HOW TO PLAY</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="ctab-process" data-ctab="process">THE PROCESS</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="ctab-sources" data-ctab="sources">NASA SOURCES</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="ctab-credits" data-ctab="credits">CREDITS &amp; AI</button>
+      </div>
+
+      <div class="codex-body">
+        <section class="ctab is-on" id="ctab-play" role="tabpanel">
+          <div class="codex-grid">
+            <div>
+              <h3>The loop</h3>
+              <ol class="steps">
+                <li><b>Read the brief.</b> The mission sets the science target, the data floor, the budget and the risk limit.</li>
+                <li><b>Design the stack.</b> Pick a bus, payloads, launch vehicle, ground segment, mission life and test programme.</li>
+                <li><b>Watch four budgets.</b> Mass, power, data and cost update live. Red means the design cannot fly.</li>
+                <li><b>Run the simulation.</b> The rocket launches in 3D, stages, deploys and reaches orbit.</li>
+                <li><b>Read the debrief.</b> Every requirement is checked. Fix, refly, or move to the next study.</li>
+              </ol>
+            </div>
+            <div>
+              <h3>What decides the score</h3>
+              <ul class="ticks">
+                <li><b>Science delivered</b> is the largest term. It falls when the downlink cannot return the data you generate.</li>
+                <li><b>Data returned</b> must clear the mission floor. A camera without a link is a storage problem.</li>
+                <li><b>Margin</b> and <b>cost efficiency</b> reward a design that is not overbuilt.</li>
+                <li><b>Risk</b> falls with a proper test programme and rises with thin margins and distance.</li>
+              </ul>
+              <p class="small-note">No single winning stack. A cheaper design can beat a more capable one if it meets the brief.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="ctab" id="ctab-process" role="tabpanel" hidden>
+          <div class="codex-grid">
+            <div>
+              <h3>NASA's six-step mission lifecycle</h3>
+              <div class="process">
+                <div><span>01</span><b>Identify need &amp; goals</b><p>The brief and the science question.</p></div>
+                <div><span>02</span><b>Define concept</b><p>Payloads and architecture.</p></div>
+                <div><span>03</span><b>Define requirements</b><p>Targets, caps, and the design envelope.</p></div>
+                <div><span>04</span><b>Design</b><p>Bus, launch, ground, operations.</p></div>
+                <div><span>05</span><b>Build &amp; verify</b><p>Test programme and risk.</p></div>
+                <div><span>06</span><b>Implement</b><p>Launch, operate, return data.</p></div>
+              </div>
+            </div>
+            <div>
+              <h3>The four mission segments</h3>
+              <ul class="segments">
+                <li><b>Launch</b><span>Vehicle, capacity, ascent.</span></li>
+                <li><b>Space</b><span>Bus, payload, power, downlink.</span></li>
+                <li><b>Ground</b><span>Stations, coverage, data recovery.</span></li>
+                <li><b>User</b><span>Science returned and used.</span></li>
+              </ul>
+              <h3 class="mt">Concept Maturity Levels</h3>
+              <p class="small-note">The campaign follows CML 1–4: cocktail napkin, initial feasibility, trade space, point design. Every debrief asks what a review board would ask next.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="ctab" id="ctab-sources" role="tabpanel" hidden>
+          <p class="codex-lede">These NASA resources shaped the model, not just the theme. Each card says exactly what the game borrowed.</p>
+          <div class="sources" id="sourceList"></div>
+        </section>
+
+        <section class="ctab" id="ctab-credits" role="tabpanel" hidden>
+          <div class="codex-grid">
+            <div>
+              <h3>Built for</h3>
+              <p>NASA Space Apps Challenge Cairo 2026<br />Challenge: Space Mission Design Game<br />13–14 November 2026 · Sewedy University of Technology</p>
+              <h3 class="mt">Team</h3>
+              <p>No Risk No Fun · Cairo, Egypt</p>
+              <h3 class="mt">Build</h3>
+              <p>Vanilla HTML, CSS and JavaScript. Three.js r128 for the 3D scene. No build step, no tracking, no server.</p>
+            </div>
+            <div>
+              <h3>AI-use disclosure</h3>
+              <p>AI tools assisted with code scaffolding, copy editing and visual ideation. The mission model, scoring rules, NASA source mapping and final design decisions were reviewed by the team. No NASA data was generated or altered by AI.</p>
+              <h3 class="mt">Disclaimer</h3>
+              <p>This is an educational game. It is not affiliated with, or endorsed by, NASA. Every mass, power, data, cost and risk value is illustrative. It is not a validated engineering or flight-planning tool.</p>
+              <h3 class="mt">Imagery</h3>
+              <p>Earth and Moon surface maps: NASA imagery via the Three.js examples (public domain). Mars surface map: Solar System Scope, CC BY 4.0. Fonts: Space Grotesk, Inter and JetBrains Mono under the SIL Open Font License.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── debrief ───────────────────────────────────────────── -->
+  <div class="modal" id="debriefModal" hidden>
+    <div class="modal-card debrief-card" role="dialog" aria-modal="true" aria-labelledby="dbTitle">
+      <header class="db-head">
+        <span class="mono" id="dbCode">M-01 // DEBRIEF</span>
+        <span class="tag" id="dbOutcome">MISSION READY</span>
+      </header>
+      <div class="db-main">
+        <div class="score-ring" id="scoreRing" style="--p:0">
+          <b id="dbScore">0</b>
+          <span>SCORE</span>
+        </div>
+        <div class="db-copy">
+          <h2 id="dbTitle">A balanced design.</h2>
+          <p id="dbText"></p>
+          <div class="db-stats" id="dbStats"></div>
+        </div>
+      </div>
+      <ul class="checks" id="dbChecks"></ul>
+      <div class="db-crew" id="dbCrew"></div>
+      <p class="db-lesson" id="dbLesson"></p>
+      <footer class="db-actions">
+        <button type="button" class="btn btn-ghost" id="dbDesign">Return to design</button>
+        <button type="button" class="btn btn-primary" id="dbNext" hidden>Next mission →</button>
+        <button type="button" class="btn btn-ghost" id="dbCampaign" hidden>Campaign</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">Mission Architect needs JavaScript for the design model and 3D scene.</div></noscript>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="js/data.js?v=132"></script>
+  <script src="js/model.js?v=132"></script>
+  <script src="js/scene.js?v=132"></script>
+  <script src="js/game.js?v=132"></script>
+<script src="bridge.js"></script>
+</body>
+</html>

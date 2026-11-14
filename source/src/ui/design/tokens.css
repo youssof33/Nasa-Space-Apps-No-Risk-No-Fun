@@ -1,0 +1,41 @@
+:root {
+  color-scheme: dark;
+
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --bg-0: #05080d;
+  --bg-1: #070d15;
+  --bg-2: #0a131e;
+  --panel: #0b1622;
+  --panel-2: #0e1c2a;
+  --panel-3: #122436;
+  --line: #1a2e42;
+  --line-strong: #28465e;
+
+  --text: #e8f2fa;
+  --text-soft: #b9cbd9;
+  --text-muted: #8199ab;
+  --text-dim: #587083;
+
+  --cyan: #55d9e8;
+  --cyan-soft: #8ff1fb;
+  --cyan-deep: #147a8c;
+  --teal: #2aa7b8;
+  --amber: #f0b45c;
+  --red: #ff6f6f;
+  --green: #63dfa4;
+  --blue: #6aa8ff;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --shadow-1: 0 12px 36px rgb(0 0 0 / 38%);
+  --shadow-2: 0 30px 90px rgb(0 0 0 / 55%);
+
+  --topbar: 0px;
+  --maxw: 1440px;
+}

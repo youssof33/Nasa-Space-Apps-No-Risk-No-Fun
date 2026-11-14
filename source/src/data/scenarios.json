@@ -1,0 +1,106 @@
+[
+  {
+    "id": "earth-observation",
+    "title": "Earth Observation",
+    "story": "A coastal region needs repeatable maps to track flooding, vegetation, and changing surface temperature.",
+    "objective": "Return useful environmental measurements throughout a one-year campaign.",
+    "threshold": {
+      "minScienceScorePoints": 50,
+      "requiredScienceTags": ["earth-imaging", "climate"],
+      "dataReturnGB": 30,
+      "minLifetimeMonths": 12
+    },
+    "baseline": {
+      "minScienceScorePoints": 70,
+      "requiredScienceTags": ["earth-imaging", "climate"],
+      "dataReturnGB": 180,
+      "minLifetimeMonths": 18
+    },
+    "requiredScienceTagMode": "all",
+    "availableBudgetM": 65,
+    "defaultOperationsCostMPerMonth": 0.18,
+    "targetCml": "CML2",
+    "difficulty": "beginner",
+    "allowedOrbits": ["LEO", "SSO"],
+    "hiddenEventsPool": ["solar-flare", "instrument-glitch", "comms-dropout", "micrometeoroid", "bonus-extension"],
+    "missionAnalog": "Landsat and Sentinel-2"
+  },
+  {
+    "id": "lunar-orbiter",
+    "title": "Lunar Orbiter",
+    "story": "A compact spacecraft will survey the Moon and help identify interesting regions for future exploration.",
+    "objective": "Collect and return lunar surface observations during a six-month mission.",
+    "threshold": {
+      "minScienceScorePoints": 35,
+      "requiredScienceTags": ["planetary-science"],
+      "dataReturnGB": 1,
+      "minLifetimeMonths": 6
+    },
+    "baseline": {
+      "minScienceScorePoints": 55,
+      "requiredScienceTags": ["planetary-science", "lunar-surface"],
+      "dataReturnGB": 8,
+      "minLifetimeMonths": 12
+    },
+    "requiredScienceTagMode": "all",
+    "availableBudgetM": 90,
+    "defaultOperationsCostMPerMonth": 0.22,
+    "targetCml": "CML2",
+    "difficulty": "intermediate",
+    "allowedOrbits": ["LUNAR"],
+    "hiddenEventsPool": ["solar-flare", "instrument-glitch", "comms-dropout", "budget-cut"],
+    "missionAnalog": "Lunar Reconnaissance Orbiter"
+  },
+  {
+    "id": "mars-flyby",
+    "title": "Mars Flyby",
+    "story": "A small secondary spacecraft gets one chance to observe Mars while traveling through deep space.",
+    "objective": "Capture and return a valuable flyby observation while surviving a long cruise.",
+    "threshold": {
+      "minScienceScorePoints": 30,
+      "requiredScienceTags": ["planetary-science", "imaging"],
+      "dataReturnGB": 0.1,
+      "minLifetimeMonths": 8
+    },
+    "baseline": {
+      "minScienceScorePoints": 50,
+      "requiredScienceTags": ["planetary-science", "imaging"],
+      "dataReturnGB": 1,
+      "minLifetimeMonths": 10
+    },
+    "requiredScienceTagMode": "all",
+    "availableBudgetM": 95,
+    "defaultOperationsCostMPerMonth": 0.2,
+    "targetCml": "CML2",
+    "difficulty": "intermediate",
+    "allowedOrbits": ["MARS_TRANSFER"],
+    "hiddenEventsPool": ["solar-flare", "instrument-glitch", "comms-dropout", "micrometeoroid"],
+    "missionAnalog": "Mariner 4"
+  },
+  {
+    "id": "space-weather-sentinel",
+    "title": "Space Weather Sentinel",
+    "story": "Operators need early warning of energetic particles and solar-wind changes that can disrupt satellites.",
+    "objective": "Compare a low-cost monitor design with higher-coverage space-weather observing architectures.",
+    "threshold": {
+      "minScienceScorePoints": 35,
+      "requiredScienceTags": ["space-weather"],
+      "dataReturnGB": 0.5,
+      "minLifetimeMonths": 12
+    },
+    "baseline": {
+      "minScienceScorePoints": 60,
+      "requiredScienceTags": ["space-weather", "solar-wind"],
+      "dataReturnGB": 2,
+      "minLifetimeMonths": 24
+    },
+    "requiredScienceTagMode": "all",
+    "availableBudgetM": 100,
+    "defaultOperationsCostMPerMonth": 0.2,
+    "targetCml": "CML2",
+    "difficulty": "intermediate",
+    "allowedOrbits": ["MEO", "HEO", "GEO"],
+    "hiddenEventsPool": ["solar-flare", "instrument-glitch", "comms-dropout", "micrometeoroid", "bonus-extension"],
+    "missionAnalog": "GOES and Solar Orbiter"
+  }
+]

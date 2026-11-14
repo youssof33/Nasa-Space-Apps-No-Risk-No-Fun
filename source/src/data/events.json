@@ -1,0 +1,50 @@
+[
+  {
+    "id": "solar-flare",
+    "name": "Solar Flare",
+    "description": "A burst of solar particles temporarily raises radiation exposure.",
+    "probabilityPerYear": 0.18,
+    "affectedSubsystem": "power",
+    "severity": "warning"
+  },
+  {
+    "id": "instrument-glitch",
+    "name": "Instrument Glitch",
+    "description": "An instrument briefly needs a reset and misses a few observations.",
+    "probabilityPerYear": 0.3,
+    "affectedSubsystem": "instrument",
+    "severity": "warning"
+  },
+  {
+    "id": "comms-dropout",
+    "name": "Communications Dropout",
+    "description": "A scheduled contact is lost and the recorder has to wait for another pass.",
+    "probabilityPerYear": 0.22,
+    "affectedSubsystem": "communications",
+    "severity": "warning"
+  },
+  {
+    "id": "micrometeoroid",
+    "name": "Micrometeoroid Impact",
+    "description": "A tiny impact causes a temporary spacecraft subsystem fault.",
+    "probabilityPerYear": 0.08,
+    "affectedSubsystem": "structure",
+    "severity": "fail"
+  },
+  {
+    "id": "bonus-extension",
+    "name": "Bonus Extended Mission",
+    "description": "The spacecraft remains healthy long enough to collect extra observations.",
+    "probabilityPerYear": 0.12,
+    "affectedSubsystem": "instrument",
+    "severity": "ok"
+  },
+  {
+    "id": "budget-cut",
+    "name": "Operations Budget Cut",
+    "description": "Ground operations are reduced, limiting instrument time and contacts.",
+    "probabilityPerYear": 0.1,
+    "affectedSubsystem": "budget",
+    "severity": "warning"
+  }
+]
