@@ -102,20 +102,20 @@ export function ScenarioSelectScreen({ onAbout, onSettings, onParty }: Props) {
           endorsed by NASA.
         </p>
         <nav class="site-footer__links" aria-label="Site information">
+          <a
+            class="text-link"
+            href="https://github.com/youssof33/Nasa-Space-Apps-No-Risk-No-Fun"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Source on GitHub
+          </a>
           <button class="text-link" type="button" onClick={onAbout}>
             About
           </button>
           <button class="text-link" type="button" onClick={onSettings}>
             Settings
           </button>
-          <a
-            class="text-link"
-            href="https://github.com/youssof33/Nasa-Space-Apps-No-Risk-No-Fun"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            GitHub
-          </a>
         </nav>
         <span class="site-footer__meta">SpaceX · v1.0 · NASA SPACE APPS 2026</span>
       </footer>
