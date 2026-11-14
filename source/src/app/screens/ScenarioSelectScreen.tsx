@@ -78,6 +78,15 @@ export function ScenarioSelectScreen({ onAbout, onSettings, onParty }: Props) {
               Play with friends
               <Icon name="users" />
             </button>
+            <a
+              class="btn btn--ghost btn--lg"
+              href="https://github.com/youssof33/Nasa-Space-Apps-No-Risk-No-Fun"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub repo
+              <Icon name="arrow-right" />
+            </a>
           </div>
           {party.value.status === "live" && party.value.code ? (
             <button class="party-pill" type="button" onClick={onParty}>
