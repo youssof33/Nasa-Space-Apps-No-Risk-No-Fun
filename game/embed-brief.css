@@ -165,6 +165,21 @@ body.mc-embed-brief .btn-launch.caution:hover {
   }
 }
 
+/* The brief wordmark doubles as the way home. */
+body.mc-embed-brief .topbar .brand.mc-home {
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+body.mc-embed-brief .topbar .brand.mc-home:hover {
+  opacity: 0.75;
+}
+
+body.mc-embed-brief .topbar .brand.mc-home:focus-visible {
+  outline: 2px solid #8ff1fb;
+  outline-offset: 3px;
+}
+
 @media (max-width: 620px) {
   body.mc-embed-brief .launchbar::before {
     display: none;

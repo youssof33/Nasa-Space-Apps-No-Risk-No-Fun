@@ -125,6 +125,25 @@
 
     holdCraft();
 
+    /* The brief's own wordmark is the way home: no extra chrome, just the text
+       that was already in the top-left corner. */
+    var brand = document.querySelector("#screen-game .topbar .brand");
+    if (brand) {
+      brand.classList.add("mc-home");
+      brand.setAttribute("role", "button");
+      brand.setAttribute("tabindex", "0");
+      brand.setAttribute("title", "SpaceX — back to the start screen");
+      brand.addEventListener("click", function () {
+        post({ type: "mc:home" });
+      });
+      brand.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          post({ type: "mc:home" });
+        }
+      });
+    }
+
     /* The design stage now belongs to the merged workbench, so the game's own
        design tabs are not part of the flow. BRIEF is the only tab. */
     var tabs = document.querySelectorAll("#tabs button");
