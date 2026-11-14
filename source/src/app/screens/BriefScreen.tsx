@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { missionById, missionByObjective } from "../../integration/missions";
 import { chooseMission, party } from "../../multiplayer/party";
+import { Icon } from "../../ui/components/icons";
 import { transitionTo } from "../../ui/state/transition";
 
 /**
@@ -95,6 +96,19 @@ export function BriefScreen({ scenarioId }: { scenarioId: string }) {
         leaving ? " is-leaving" : ""
       }`}
     >
+      <div class="brief-bar">
+        <button
+          class="brief-logo"
+          type="button"
+          onClick={() => home()}
+          title="SpaceX — back to the start screen"
+        >
+          SpaceX
+        </button>
+        <button class="brief-back" type="button" onClick={() => home()}>
+          <Icon name="arrow-left" size={14} /> Mission control
+        </button>
+      </div>
       <iframe
         ref={frame}
         title={`${mission.siteName} mission brief`}
@@ -103,4 +117,11 @@ export function BriefScreen({ scenarioId }: { scenarioId: string }) {
       />
     </div>
   );
+
+  function home() {
+    if (navigating.current) return;
+    navigating.current = true;
+    setLeaving(true);
+    transitionTo({ name: "select" }, "Returning to mission control");
+  }
 }
